@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm2254xwde58h"]
+
+[ext_resource type="Script" path="res://Objects/Bar/bar.gd" id="1_67jch"]
+[ext_resource type="Texture2D" uid="uid://ciodghiidodm1" path="res://assets/arts/Player.png" id="1_w4fdn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2aym"]
+size = Vector2(31, 185)
+
+[node name="Bar" type="CharacterBody2D"]
+script = ExtResource("1_67jch")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_w4fdn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("RectangleShape2D_t2aym")
