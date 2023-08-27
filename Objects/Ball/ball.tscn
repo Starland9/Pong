@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d04i5bc5ymtvv"]
+[gd_scene load_steps=6 format=3 uid="uid://d04i5bc5ymtvv"]
 
 [ext_resource type="Script" path="res://Objects/Ball/ball.gd" id="1_cwh3u"]
 [ext_resource type="Texture2D" uid="uid://br2db2ml6rj6u" path="res://assets/arts/Ball.png" id="1_fp1aa"]
+[ext_resource type="AudioStream" uid="uid://d6gm1jey0q2v" path="res://assets/sfx/mixkit-ball-bouncing-in-the-ground-2077.wav" id="3_wclrp"]
+[ext_resource type="AudioStream" uid="uid://bly4yio555d53" path="res://assets/sfx/mixkit-retro-arcade-game-over-470.wav" id="4_beali"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3vfus"]
 radius = 23.0
@@ -15,5 +17,12 @@ texture = ExtResource("1_fp1aa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3vfus")
+
+[node name="BounceSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_wclrp")
+volume_db = 10.0
+
+[node name="OutSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_beali")
 
 [connection signal="out" from="." to="." method="_on_out"]
