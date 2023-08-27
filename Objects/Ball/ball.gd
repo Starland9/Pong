@@ -5,22 +5,23 @@ class_name Ball
 signal out(player: int)
 
 var speed := 8
-var direction := Vector2.ZERO
+var _direction := Vector2.ZERO
 @onready var angle = randf_range(0, 2 * PI)
-@onready var _screen_size := DisplayServer.screen_get_size()
+var _screen_size
 var _start_position
 var _max_velocity := 5.0
 
 func _ready():
-	direction = angle_to_dir(angle)
-	velocity = direction * 6
+	_direction = angle_to_dir(angle)
+	velocity = _direction * 6
 	_start_position = global_position
+	_screen_size = get_viewport_rect().size.x
 	
 	
 func angle_to_dir(angle_p):
 	return Vector2(cos(angle_p), sin(angle_p))
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var body = move_and_collide(velocity)
 	if body:
 		bounce(body)
@@ -28,9 +29,12 @@ func _physics_process(delta):
 		
 
 func _verify_out():
+	if global_position.x < 0 or global_position.x > _screen_size:
+		$OutSound.play()
+	
 	if global_position.x < -500:
 		out.emit(-1)
-	if global_position.x > _screen_size.x:
+	if global_position.x > _screen_size + 500:
 		out.emit(1)
 	
 
@@ -43,6 +47,7 @@ func bounce(collision: KinematicCollision2D):
 	var reflexion = linear_velocity.reflect(normal)
 	velocity = linear_velocity - 2 * reflexion 
 	_max_velocity += 0.1
+	$BounceSound.play()
 	clamp_velocity()
 	
 	
