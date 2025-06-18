@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://bv5haqs18b2e7"]
 
-[ext_resource type="Texture2D" uid="uid://cn2fd6xs6gg67" path="res://assets/arts/Board.png" id="1_pn0h4"]
-[ext_resource type="Script" path="res://Scenes/main.gd" id="1_yrjvw"]
+[ext_resource type="Script" uid="uid://bta3ctdn5qf88" path="res://Scenes/main.gd" id="1_yrjvw"]
 [ext_resource type="PackedScene" uid="uid://d04i5bc5ymtvv" path="res://Objects/Ball/ball.tscn" id="2_vhld5"]
 [ext_resource type="PackedScene" uid="uid://dm2254xwde58h" path="res://Objects/Bar/bar.tscn" id="3_ud1m4"]
 [ext_resource type="Texture2D" uid="uid://beslmj16nynoy" path="res://assets/arts/Computer.png" id="4_7ijuj"]
-[ext_resource type="Script" path="res://Scenes/HUD.gd" id="5_qjipy"]
+[ext_resource type="Script" uid="uid://vbxq3ujo7f6e" path="res://Scenes/HUD.gd" id="5_qjipy"]
 [ext_resource type="Texture2D" uid="uid://rvddqgv36fk3" path="res://assets/arts/ScoreBar.png" id="5_yrd0c"]
 [ext_resource type="FontFile" uid="uid://8wr75cw5elqn" path="res://assets/fonts/Teko-Bold.ttf" id="6_bdjl3"]
+[ext_resource type="FontFile" uid="uid://ce2gedlmfy0an" path="res://assets/fonts/Teko-Regular.ttf" id="9_ynf5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ca8l1"]
 size = Vector2(1180, 20)
@@ -19,12 +19,19 @@ font_size = 30
 [node name="Main" type="Node2D"]
 script = ExtResource("1_yrjvw")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+[node name="Sprite2D" type="Control" parent="."]
+custom_minimum_size = Vector2(1300, 700)
+layout_mode = 3
+anchors_preset = 0
 
-[node name="Board" type="Sprite2D" parent="ParallaxBackground"]
-scale = Vector2(1.43766, 1.43077)
-texture = ExtResource("1_pn0h4")
-centered = false
+[node name="ColorRect" type="ColorRect" parent="Sprite2D"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="Ball" parent="." instance=ExtResource("2_vhld5")]
 position = Vector2(578, 316)
@@ -56,6 +63,8 @@ shape = SubResource("RectangleShape2D_ca8l1")
 position = Vector2(578, 651)
 shape = SubResource("RectangleShape2D_ca8l1")
 
+[node name="Goals" type="Node2D" parent="."]
+
 [node name="HUD" type="CanvasLayer" parent="."]
 script = ExtResource("5_qjipy")
 
@@ -66,6 +75,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CheckButton" type="CheckButton" parent="HUD/Control"]
+layout_mode = 0
+offset_left = 356.0
+offset_top = 10.0
+offset_right = 495.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("6_bdjl3")
+text = "AUTOPILOT"
 
 [node name="Scores" type="Node2D" parent="HUD"]
 
@@ -78,6 +96,7 @@ offset_left = -143.0
 offset_top = -22.0
 offset_right = 126.0
 offset_bottom = 4.0
+theme_override_fonts/font = ExtResource("9_ynf5e")
 text = "0"
 label_settings = SubResource("LabelSettings_b3cuk")
 
@@ -91,22 +110,14 @@ offset_left = -131.0
 offset_top = -23.0
 offset_right = 144.0
 offset_bottom = 24.0
+theme_override_fonts/font = ExtResource("9_ynf5e")
 text = "0"
 label_settings = SubResource("LabelSettings_b3cuk")
 horizontal_alignment = 2
 vertical_alignment = 1
 text_direction = 1
 
-[node name="CheckButton" type="CheckButton" parent="HUD"]
-offset_left = 356.0
-offset_top = 10.0
-offset_right = 495.0
-offset_bottom = 41.0
-text = "AUTOPILOT"
-
-[node name="Goals" type="Node2D" parent="."]
-
 [connection signal="out" from="Ball" to="HUD" method="_on_ball_out"]
-[connection signal="toggled" from="HUD/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="toggled" from="HUD/Control/CheckButton" to="." method="_on_check_button_toggled"]
 
 [editable path="Bars/CPU"]

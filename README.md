@@ -8,5 +8,5 @@ Un jeu de pong avec godot engine
 
 ## Usage
 
-<video src="https://github.com/LandPix200/Pong/blob/main/screenshots/shot.webm" controls></video>
+[![Video](https://github.com/LandPix200/Pong/blob/main/screenshots/shot.mkv)](https://github.com/LandPix200/Pong/blob/main/screenshots/shot.mkv)
 

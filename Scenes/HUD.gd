@@ -10,7 +10,7 @@ func _update_score(player: int):
 	if player == 1:
 		left_score += 1
 		left_score_label.text = str(left_score)
-	
+
 	if player == -1:
 		right_score += 1
 		right_score_label.text = str(right_score)
